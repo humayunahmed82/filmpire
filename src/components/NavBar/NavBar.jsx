@@ -18,7 +18,7 @@ import {
 	AccountCircle,
 } from "@mui/icons-material";
 
-import Sidebar from "../Sidebar/Sidebar";
+import { Sidebar } from "../index";
 
 import useStyle from "./styles";
 
