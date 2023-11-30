@@ -18,7 +18,7 @@ import {
 	AccountCircle,
 } from "@mui/icons-material";
 
-import { Sidebar } from "../index";
+import { Search, Sidebar } from "../index";
 
 import useStyle from "./styles";
 
@@ -47,7 +47,7 @@ const NavBar = () => {
 					<IconButton color="inherit" sx={{ ml: 1 }} onClick={() => {}}>
 						{theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
 					</IconButton>
-					{!isMobile && "search..."}
+					{!isMobile && <Search />}
 					<div className="">
 						{!isAuthenticated ? (
 							<Button color="inherit" onClick={() => {}}>
@@ -70,7 +70,7 @@ const NavBar = () => {
 							</Button>
 						)}
 					</div>
-					{isMobile && "search..."}
+					{isMobile && <Search />}
 				</Toolbar>
 			</AppBar>
 

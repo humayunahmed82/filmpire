@@ -1,6 +1,7 @@
 import { Grid, Grow, Rating, Tooltip, Typography } from "@mui/material";
-import useStyle from "./styles";
 import { Link } from "react-router-dom";
+
+import useStyle from "./styles";
 
 const Movie = ({ movie, index }) => {
 	const classes = useStyle();
