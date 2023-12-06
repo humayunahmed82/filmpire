@@ -34,8 +34,6 @@ const NavBar = () => {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 
-	console.log(user, isAuthenticated);
-
 	const token = localStorage.getItem("request_token");
 	const sessionIdFormLocalStorage = localStorage.getItem("session_id");
 
@@ -43,14 +41,11 @@ const NavBar = () => {
 		const logInUser = async () => {
 			if (token) {
 				if (sessionIdFormLocalStorage) {
-					console.log(1);
-
 					const { data: userData } = await moviesApi.get(
 						`/account?session_id=${sessionIdFormLocalStorage}`
 					);
 					dispatch(setUser(userData));
 				} else {
-					console.log(2);
 					const sessionId = await createSessionId();
 
 					const { data: userData } = await moviesApi.get(

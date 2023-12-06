@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { userSelector } from "../../features/auth";
 import { Box, Button, Typography } from "@mui/material";
+import { ExitToApp } from "@mui/icons-material";
 
 const Profile = () => {
 	const { user } = useSelector(userSelector);
@@ -20,7 +21,7 @@ const Profile = () => {
 					My Profile
 				</Typography>
 				<Button color="inherit" onClick={logout}>
-					Logout &nbsp;
+					Logout &nbsp; <ExitToApp />
 				</Button>
 			</Box>
 			{!favoriteMovies.length ? (
