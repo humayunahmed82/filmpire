@@ -4,15 +4,39 @@ import { useDispatch } from "react-redux";
 import { useGetMovieQuery } from "../../services/TMBD";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 
-import { Box, CircularProgress, Grid, Rating, Typography } from "@mui/material";
+import {
+	Box,
+	Button,
+	ButtonGroup,
+	CircularProgress,
+	Grid,
+	Rating,
+	Typography,
+} from "@mui/material";
 import genresIcon from "../../assets/genres/index";
 
 import useStyle from "./styles";
+import {
+	Movie as MovieIcon,
+	Language,
+	Theaters,
+	FavoriteBorderOutlined,
+	Favorite,
+	Remove,
+	PlusOne,
+	ArrowBack,
+} from "@mui/icons-material";
 
 const MovieInformation = () => {
 	const { id } = useParams();
 	const { data, isFetching, error } = useGetMovieQuery(id);
 	const dispatch = useDispatch();
+
+	const addToFavorites = () => {};
+	const addToWatchLists = () => {};
+
+	const isMovieFavorited = false;
+	const isMovieWatchlist = false;
 
 	const classes = useStyle();
 
@@ -75,6 +99,7 @@ const MovieInformation = () => {
 							to="/"
 							key={genre.name}
 							onClick={() => dispatch(selectGenreOrCategory(genre.id))}
+							style={{ textDecoration: "none" }}
 						>
 							<img
 								src={genresIcon[genre.name.toLowerCase()]}
@@ -87,6 +112,105 @@ const MovieInformation = () => {
 							</Typography>
 						</Link>
 					))}
+				</Grid>
+				<Typography variant="h5" gutterBottom style={{ marginTop: "10px" }}>
+					Overview
+				</Typography>
+				<Typography gutterBottom style={{ marginTop: "10px" }}>
+					{data?.overview}
+				</Typography>
+				<Typography variant="h5" gutterBottom style={{ marginTop: "10px" }}>
+					Top Cast
+				</Typography>
+				<Grid item container spacing={2}>
+					{data &&
+						data?.credits?.cast
+							.map(
+								(character, index) =>
+									character.profile_path && (
+										<Grid
+											key={index}
+											item
+											xs={4}
+											md={2}
+											component={Link}
+											to={`/actors/${character.id}`}
+											style={{ textDecoration: "none" }}
+										>
+											<img
+												className={classes.castImage}
+												src={`https://image.tmdb.org/t/p/w500/${character.profile_path}`}
+												alt={character.name}
+											/>
+											<Typography color="textPrimary">
+												{character?.name}
+											</Typography>
+											<Typography color="textSecondary">
+												{character.character.split("/")[0]}
+											</Typography>
+										</Grid>
+									)
+							)
+							.slice(0, 6)}
+				</Grid>
+				<Grid item container style={{ marginTop: "2rem" }}>
+					<div className={classes.buttonsContainer}>
+						<Grid item xs={12} sm={6} className={classes.buttonsContainer}>
+							<ButtonGroup size="small" variant="outlined">
+								<Button
+									target="_blank"
+									rel="noopener noreferre"
+									href={data?.homepage}
+									endIcon={<Language />}
+								>
+									Website
+								</Button>
+								<Button
+									target="_blank"
+									rel="noopener noreferre"
+									href={`https://www.imdb.com/title/${data?.imdb_id}`}
+									endIcon={<MovieIcon />}
+								>
+									IMDB
+								</Button>
+								<Button onClick={() => {}} href="#" endIcon={<Theaters />}>
+									Trailer
+								</Button>
+							</ButtonGroup>
+						</Grid>
+						<Grid item xs={12} sm={6} className={classes.buttonsContainer}>
+							<ButtonGroup size="small" variant="outlined">
+								<Button
+									onClick={addToFavorites}
+									endIcon={
+										isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />
+									}
+								>
+									{isMovieFavorited ? "unfavorite" : "Favorite"}
+								</Button>
+								<Button
+									onClick={addToWatchLists}
+									endIcon={isMovieWatchlist ? <Remove /> : <PlusOne />}
+								>
+									Watchlist
+								</Button>
+								<Button
+									endIcon={<ArrowBack />}
+									sx={{ borderColor: "primary.main" }}
+								>
+									<Typography
+										component={Link}
+										to="/"
+										color="inherit"
+										variant="subtitle2"
+										style={{ textDecoration: "none" }}
+									>
+										Back
+									</Typography>
+								</Button>
+							</ButtonGroup>
+						</Grid>
+					</div>
 				</Grid>
 			</Grid>
 		</Grid>
