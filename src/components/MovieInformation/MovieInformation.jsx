@@ -20,7 +20,6 @@ import {
 } from "@mui/material";
 import genresIcon from "../../assets/genres/index";
 
-import useStyle from "./styles";
 import {
 	Movie as MovieIcon,
 	Language,
@@ -32,6 +31,8 @@ import {
 	ArrowBack,
 } from "@mui/icons-material";
 import { MovieList } from "..";
+
+import useStyle from "./styles";
 
 const MovieInformation = () => {
 	const { id } = useParams();
@@ -51,8 +52,6 @@ const MovieInformation = () => {
 	const addToWatchLists = () => {};
 
 	const classes = useStyle();
-
-	console.log(data);
 
 	if (isFetching) {
 		return (

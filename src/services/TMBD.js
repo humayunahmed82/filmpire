@@ -50,6 +50,17 @@ export const tmbdApi = createApi({
 			query: ({ movie_id, list }) =>
 				`/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`,
 		}),
+
+		// * Get Actor Details
+		getActorDetails: builder.query({
+			query: (id) => `/person/${id}?api_key=${tmdbApiKey}`,
+		}),
+
+		// * Get Movie by Actor Id
+		getMovieByActorId: builder.query({
+			query: ({ id, page }) =>
+				`/discover/movie?with_cast=${id}&page=${page}&api_key=${tmdbApiKey}`,
+		}),
 	}),
 });
 
@@ -58,4 +69,8 @@ export const {
 	useGetGenresQuery,
 	useGetMovieQuery,
 	useGetRecommendationsQuery,
+	useGetActorDetailsQuery,
+	useGetMovieByActorIdQuery,
 } = tmbdApi;
+
+// tps://api.themoviedb.org/3/person/changes?end_date=12835&page=1'
