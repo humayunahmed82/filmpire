@@ -4,7 +4,7 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import { useGetMoviesQuery } from "../../services/TMBD";
-import { MovieList } from "../index";
+import { MovieList, Pagination } from "../index";
 
 const Movies = () => {
 	const [page, setPage] = useState(1);
@@ -39,6 +39,11 @@ const Movies = () => {
 	return (
 		<div>
 			<MovieList movies={data} />
+			<Pagination
+				currentPage={page}
+				setPage={setPage}
+				totalPages={data.total_pages}
+			/>
 		</div>
 	);
 };

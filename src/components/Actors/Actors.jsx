@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
@@ -9,12 +10,12 @@ import {
 } from "../../services/TMBD";
 
 import useStyle from "./styles";
-
-const page = 1;
+import Pagination from "../Pagination/Pagination";
 
 const Actors = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const [page, setPage] = useState(1);
 
 	const { data, isFetching, error } = useGetActorDetailsQuery(id);
 	const { data: actorMovie } = useGetMovieByActorIdQuery({ id, page });
@@ -95,6 +96,12 @@ const Actors = () => {
 					<Box>Sorry, nothing was found.</Box>
 				)}
 			</Box>
+
+			<Pagination
+				currentPage={page}
+				setPage={setPage}
+				totalPages={actorMovie.total_pages}
+			/>
 		</Grid>
 	);
 };
