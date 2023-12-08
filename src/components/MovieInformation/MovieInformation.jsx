@@ -1,7 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { useGetMovieQuery } from "../../services/TMBD";
+import {
+	useGetMovieQuery,
+	useGetRecommendationsQuery,
+} from "../../services/TMBD";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 
 import {
@@ -26,10 +29,16 @@ import {
 	PlusOne,
 	ArrowBack,
 } from "@mui/icons-material";
+import { MovieList } from "..";
 
 const MovieInformation = () => {
 	const { id } = useParams();
 	const { data, isFetching, error } = useGetMovieQuery(id);
+	const { data: recommendations, isFetching: isRecommendationFetching } =
+		useGetRecommendationsQuery({
+			list: "/recommendations",
+			movie_id: id,
+		});
 	const dispatch = useDispatch();
 
 	const addToFavorites = () => {};
@@ -40,7 +49,7 @@ const MovieInformation = () => {
 
 	const classes = useStyle();
 
-	console.log(data);
+	console.log(recommendations);
 
 	if (isFetching) {
 		return (
@@ -213,6 +222,18 @@ const MovieInformation = () => {
 					</div>
 				</Grid>
 			</Grid>
+
+			<Box marginTop="5rem" width="100%">
+				<Typography variant="h3" gutterBottom align="center">
+					Your might also like
+				</Typography>
+
+				{recommendations ? (
+					<MovieList movies={recommendations} numberOfMovies={12} />
+				) : (
+					<Box>Sorry, nothing was found.</Box>
+				)}
+			</Box>
 		</Grid>
 	);
 };
