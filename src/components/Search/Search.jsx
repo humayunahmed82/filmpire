@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { searchMovie } from "../../features/currentGenreOrCategory";
 
@@ -11,12 +12,15 @@ const Search = () => {
 	const classes = useStyle();
 	const [query, setQuery] = useState("");
 	const dispatch = useDispatch();
+	const location = useLocation();
 
 	const handelKeyPress = (event) => {
 		if (event.key === "Enter") {
 			dispatch(searchMovie(query));
 		}
 	};
+
+	if (location !== "/") return null;
 
 	return (
 		<div className={classes.searchContainer}>

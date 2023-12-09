@@ -22,7 +22,10 @@ const App = () => {
 			<main className={classes.content}>
 				<div className={classes.toolbar} />
 				<Routes>
-					<Route path="/" element={<Movies />}></Route>
+					{["/", "/approved"].map((path, index) => (
+						<Route path={path} element={<Movies />} key={index} />
+					))}
+					{/* <Route path={} element={<Movies />}></Route> */}
 					<Route path="/movie/:id" element={<MovieInformation />}></Route>
 					<Route path="/actors/:id" element={<Actors />}></Route>
 					<Route path="/profile/:id" element={<Profile />}></Route>
