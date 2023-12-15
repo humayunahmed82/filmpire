@@ -100,7 +100,7 @@ const Actors = () => {
 			<Pagination
 				currentPage={page}
 				setPage={setPage}
-				totalPages={actorMovie.total_pages}
+				totalPages={actorMovie?.total_pages}
 			/>
 		</Grid>
 	);
