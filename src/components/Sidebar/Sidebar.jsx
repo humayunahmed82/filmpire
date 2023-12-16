@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTheme } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,6 +38,10 @@ const Sidebar = ({ setMobileOpen }) => {
 	const theme = useTheme();
 	const classes = useStyle();
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		setMobileOpen(false);
+	}, [genreIDOrCategoryName]);
 
 	return (
 		<>
